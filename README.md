@@ -6,9 +6,9 @@
 		<br />
 		<a href="https://aws.amazon.com"><img src="https://img.shields.io/badge/-deployed-blank.svg?style=social&logo=amazon"></a>
 		<br />
-		<h3>lab-iam-profiles</h3>
-		</a> <a href="https://app.circleci.com/pipelines/github/ThoughtWorks-DPS/lab-iam-profiles"><img src="https://circleci.com/gh/ThoughtWorks-DPS/lab-iam-profiles.svg?style=shield"></a>
-		<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/ThoughtWorks-DPS/lab-iam-profiles"></a>
+		<h3>cohort-iam-profiles</h3>
+		</a> <a href="https://app.circleci.com/pipelines/github/ThoughtWorks-DPS/cohort-base-iam-profiles"><img src="https://circleci.com/gh/ThoughtWorks-DPS/cohort-base-iam-profiles.svg?style=shield"></a>
+		<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/ThoughtWorks-DPS/cohort-base-iam-profiles"></a>
 	</p>
 </div>
 
@@ -28,7 +28,7 @@ Account structure
 
 <div align="center">
 	<p>
-		<img alt="account strategy" src="https://github.com/ThoughtWorks-DPS/lab-iam-profiles/blob/main/doc/aws_account_strategy.png" />
+		<img alt="account strategy" src="https://github.com/ThoughtWorks-DPS/cohort-base-iam-profiles/blob/main/doc/aws_account_strategy.png" />
 	</p>
 </div>
 
@@ -54,7 +54,7 @@ The only configuration that is applied to all accounts are the pipeline roles. T
 
 If you do not have SaaS for terraform state or secrets then the bootstrap will need to include that configuration in the state account as well.  
 
-**what does this lab-iam-profiles pipeline manage?**
+**what does this cohort-base-iam-profiles pipeline manage?**
 
 A basic example drawing below illustrates, nonprod and prod service accounts are created to act as the indentity for all infrastructure pipelines. There are matching groups defined that enable the service accounts to assume any role matching the service-account-role naming pattern in the respective aws accounts. There is also a platform team members groups created the enable the owners of these accounts to assume any role in any accounts for development and forensic purposes. _note. production access is a necessary part of product ownership, and for compliance purposes monitoring and alerts are configured for the production account to track and notify regarding platform team direct access to the production account._
 
@@ -62,7 +62,7 @@ These are defined in the `main.tf` resource file and are applied only if the pla
 
 <div align="center">
 	<p>
-		<img alt="CircleCI Logo" src="https://github.com/ThoughtWorks-DPS/lab-iam-profiles/blob/main/doc/configuration.png" />
+		<img alt="CircleCI Logo" src="https://github.com/ThoughtWorks-DPS/cohort-base-iam-profiles/blob/main/doc/configuration.png" />
 	</p>
 </div>
 
@@ -78,14 +78,14 @@ _service accounts_
 Two service accounts are created. A Nonprod service account and a Prod service account to be used for all infrastructure automation pipeline examples. In this case the example happens to have only a single type of each account, but in general the nonprod service account would be used for all nonproduction accounts of which there are typically several. The production service account is reserved for production accounts.  
 
 DPSNonprodServiceAccount  
-DPSProdServiceAccount  
+CohortBaseServiceAccount  
 
 _groups_
 
 Two iam groups are created:  
 
 DPSNonprodServiceAccountGroup  
-DPSProdServiceAccountGroup  
+CohortBaseServiceAccountGroup  
 
 to which the respective service accounts are added. The Nonprod service account groups is enabled to assume any role that exists in any nonproduction account, likewise the production service account can assume any role in the production account.
 
@@ -100,10 +100,6 @@ examples:
 arn:aws:iam::*:role/DPSIamProfilesRole  
 arn:aws:iam::*:role/DPSPlatformEksBaseRole  
 arn:aws:iam::*:role/DPSPlatformEksCoreServicesRole  
-
-## DataDog
-
-The aws account core integration to datadog is a external-id based role. This is a single role per aws account and in the lab is managed by this repo/pipeline.  
 
 #### Dependencies
 

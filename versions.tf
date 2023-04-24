@@ -2,7 +2,7 @@ terraform {
   required_version = "~> 1.2"
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
     }
     datadog = {
       source = "DataDog/datadog"
@@ -13,7 +13,7 @@ terraform {
     hostname     = "app.terraform.io"
     organization = "twdps"
     workspaces {
-      prefix = "lab-iam-profiles-"
+      prefix = "cohort-base-iam-profiles-"
     }
   }
 }
@@ -26,17 +26,12 @@ provider "aws" {
   # secrethub.*.env to contain the appropriate service account identity
   assume_role {
     role_arn     = "arn:aws:iam::${var.aws_account_id}:role/${var.aws_account_role}"
-    session_name = "lab-iam-profiles"
+    session_name = "cohort-base-iam-profiles"
   }
 
   default_tags {
     tags = {
-      pipeline = "lab-iam-profiles"
+      pipeline = "cohort-base-iam-profiles"
     }
   }
-}
-
-provider "datadog" {
-  api_key = var.datadog_api_key
-  app_key = var.datadog_app_key
 }

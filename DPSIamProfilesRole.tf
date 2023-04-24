@@ -1,6 +1,6 @@
 # IamProfiles role
 #
-# Used by: lab-iam-profiles pipeline
+# Used by: cohort-base-iam-profiles pipeline
 # manages iam policy for platform roles, groups, and service accounts
 
 module "DPSIamProfilesRole" {
@@ -22,10 +22,10 @@ resource "aws_iam_policy" "DPSIamProfilesRolePolicy" {
   path = "/"
 
   policy = jsonencode({
-    "Version": "2012-10-17"
-    "Statement": [
+    "Version" : "2012-10-17"
+    "Statement" : [
       {
-        "Action": [
+        "Action" : [
           "iam:AddUserToGroup",
           "iam:AttachGroupPolicy",
           "iam:AttachRolePolicy",
@@ -101,8 +101,8 @@ resource "aws_iam_policy" "DPSIamProfilesRolePolicy" {
           "iam:Tag*",
           "iam:ListMFADevices"
         ]
-        "Effect": "Allow"
-        "Resource": "*"
+        "Effect" : "Allow"
+        "Resource" : "*"
       },
     ]
   })
